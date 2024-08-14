@@ -36,6 +36,7 @@ contract XNFTTest is Test {
 
         // Step 1) Deploy XNFT.sol to Ethereum Sepolia
         assertEq(vm.activeFork(), ethSepoliaFork);
+        console.log("Ethereum Sepolia Fork Chain ID:", block.chainid);
 
         ethSepoliaNetworkDetails = ccipLocalSimulatorFork.getNetworkDetails(block.chainid); // we are currently on Ethereum Sepolia Fork
         assertEq(
@@ -53,6 +54,7 @@ contract XNFTTest is Test {
         // Step 2) Deploy XNFT.sol to Arbitrum Sepolia
         vm.selectFork(arbSepoliaFork);
         assertEq(vm.activeFork(), arbSepoliaFork);
+        console.log("Arbitrum Sepolia Fork Chain ID:", block.chainid);
 
         arbSepoliaNetworkDetails = ccipLocalSimulatorFork.getNetworkDetails(block.chainid); // we are currently on Arbitrum Sepolia Fork
         assertEq(
@@ -72,7 +74,8 @@ contract XNFTTest is Test {
         // Step 3) On Ethereum Sepolia, call enableChain function
         vm.selectFork(ethSepoliaFork);
         assertEq(vm.activeFork(), ethSepoliaFork);
-
+        console.log("Ethereum Sepolia Fork Chain ID:", block.chainid);
+    
         encodeExtraArgs = new EncodeExtraArgs();
 
         uint256 gasLimit = 200_000;
@@ -84,6 +87,7 @@ contract XNFTTest is Test {
         // Step 4) On Arbitrum Sepolia, call enableChain function
         vm.selectFork(arbSepoliaFork);
         assertEq(vm.activeFork(), arbSepoliaFork);
+        console.log("Arbitrum Sepolia Fork Chain ID:", block.chainid);
 
         arbSepoliaXNFT.enableChain(ethSepoliaNetworkDetails.chainSelector, address(ethSepoliaXNFT), extraArgs);
 
@@ -114,6 +118,7 @@ contract XNFTTest is Test {
         // On Ethereum Sepolia, check if xNFT was succesfully transferred
         ccipLocalSimulatorFork.switchChainAndRouteMessage(ethSepoliaFork); // THIS LINE REPLACES CHAINLINK CCIP DONs, DO NOT FORGET IT
         assertEq(vm.activeFork(), ethSepoliaFork);
+        console.log("Ethereum Sepolia Fork Chain ID:", block.chainid);
 
         assertEq(ethSepoliaXNFT.balanceOf(bob), 1);
         assertEq(ethSepoliaXNFT.ownerOf(tokenId), bob);

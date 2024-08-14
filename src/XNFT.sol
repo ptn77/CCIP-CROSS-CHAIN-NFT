@@ -206,13 +206,7 @@ contract XNFT is ERC721, ERC721URIStorage, ERC721Burnable, IAny2EVMMessageReceiv
         if (!sent) revert FailedToWithdrawEth(msg.sender, _beneficiary, amount);
     }
 
-    function withdrawToken(address _beneficiary, address _token) public onlyOwner {
-        uint256 amount = IERC20(_token).balanceOf(address(this));
-
-        if (amount == 0) revert NothingToWithdraw();
-
-        IERC20(_token).safeTransfer(_beneficiary, amount);
-    }
+   
 
     function tokenURI(uint256 tokenId) public view override(ERC721, ERC721URIStorage) returns (string memory) {
         return super.tokenURI(tokenId);
