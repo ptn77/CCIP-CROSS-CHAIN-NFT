@@ -17,7 +17,8 @@ docs/
 # Node modules
 node_modules/
 
-#no-commit
-.gitmodules/lib/ccip
-.gitmodules/lib/openzeppelin-contracts
-.gitmodules/lib/chainlink
+
+lib/ccip
+lib/openzeppelin-contracts/
+lib/chainlink/
+lib/chainlink-local/
