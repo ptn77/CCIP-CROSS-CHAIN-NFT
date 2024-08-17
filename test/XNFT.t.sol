@@ -5,7 +5,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {CCIPLocalSimulatorFork, Register} from "@chainlink/local/src/ccip/CCIPLocalSimulatorFork.sol";
 
 import {XNFT} from "../src/XNFT.sol";
-import {EncodeExtraArgs} from "./utils/EncodeExtraArgs.sol";
+import {EncodeExtraArgs} from "../src/utils/EncodeExtraArgs.sol";
 
 contract XNFTTest is Test {
     CCIPLocalSimulatorFork public ccipLocalSimulatorFork;
@@ -39,6 +39,7 @@ contract XNFTTest is Test {
         console.log("Ethereum Sepolia Fork Chain ID:", block.chainid);
 
         ethSepoliaNetworkDetails = ccipLocalSimulatorFork.getNetworkDetails(block.chainid); // we are currently on Ethereum Sepolia Fork
+        console.log("Ethereum Sepolia Fork Chain Selector:", ethSepoliaNetworkDetails.chainSelector);
         assertEq(
             ethSepoliaNetworkDetails.chainSelector,
             16015286601757825753,
@@ -57,10 +58,11 @@ contract XNFTTest is Test {
         console.log("Arbitrum Sepolia Fork Chain ID:", block.chainid);
 
         arbSepoliaNetworkDetails = ccipLocalSimulatorFork.getNetworkDetails(block.chainid); // we are currently on Arbitrum Sepolia Fork
+        console.log("Arbitrum Sepolia Fork Chain Selector:",  arbSepoliaNetworkDetails.chainSelector);
         assertEq(
             arbSepoliaNetworkDetails.chainSelector,
             3478487238524512106,
-            "Sanity check: Arbitrum Sepolia chain selector should be 421614"
+            "Sanity check: Arbitrum Sepolia chain selector should be 3478487238524512106"
         );
 
         arbSepoliaXNFT = new XNFT(
@@ -87,7 +89,7 @@ contract XNFTTest is Test {
         // Step 4) On Arbitrum Sepolia, call enableChain function
         vm.selectFork(arbSepoliaFork);
         assertEq(vm.activeFork(), arbSepoliaFork);
-        console.log("Arbitrum Sepolia Fork Chain ID:", block.chainid);
+        console.log("Select Arbitrum Sepolia Fork Chain ID:", block.chainid);
 
         arbSepoliaXNFT.enableChain(ethSepoliaNetworkDetails.chainSelector, address(ethSepoliaXNFT), extraArgs);
 

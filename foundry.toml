@@ -3,7 +3,6 @@ src = "src"
 out = "out"
 test = "test"
 libs = ["lib"]
-solc = '0.8.24'
 
 remappings = [
     '@chainlink/contracts-ccip/=lib/ccip/contracts/',
@@ -13,6 +12,8 @@ remappings = [
 ]
 
 gas_reports = ["*"]
+solc = '0.8.20'
+evm_version = 'paris'
 
 [rpc_endpoints]
 ethereumSepolia = "${ETHEREUM_SEPOLIA_RPC_URL}"
