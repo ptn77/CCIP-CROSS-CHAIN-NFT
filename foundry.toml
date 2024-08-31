@@ -14,6 +14,11 @@ remappings = [
 gas_reports = ["*"]
 solc = '0.8.20'
 evm_version = 'paris'
+# Enable optimizer
+optimizer = true
+
+# Number of optimization runs
+optimizer_runs = 200
 
 [rpc_endpoints]
 ethereumSepolia = "${ETHEREUM_SEPOLIA_RPC_URL}"

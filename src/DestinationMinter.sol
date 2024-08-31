@@ -19,10 +19,8 @@ contract DestinationMinter is CCIPReceiver {
         nft = XNFT(nftAddress);
     }
 
-    function _ccipReceive(
-        Client.Any2EVMMessage memory message
-    ) internal override {
-        (bool success, ) = address(nft).call(message.data);
+    function _ccipReceive(Client.Any2EVMMessage memory message) internal override {
+        (bool success,) = address(nft).call(message.data);
         require(success);
         emit MintCallSuccessfull();
     }

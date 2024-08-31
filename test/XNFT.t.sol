@@ -3,9 +3,10 @@ pragma solidity ^0.8.13;
 
 import {Test, console} from "forge-std/Test.sol";
 import {CCIPLocalSimulatorFork, Register} from "@chainlink/local/src/ccip/CCIPLocalSimulatorFork.sol";
-
+import {DeploySource, DeployDestination} from "../script/CrossChainNFT.s.sol";
 import {XNFT} from "../src/XNFT.sol";
 import {EncodeExtraArgs} from "../src/utils/EncodeExtraArgs.sol";
+import "../script/Helper.sol";
 
 contract XNFTTest is Test {
     CCIPLocalSimulatorFork public ccipLocalSimulatorFork;
@@ -13,6 +14,8 @@ contract XNFTTest is Test {
     uint256 arbSepoliaFork;
     Register.NetworkDetails ethSepoliaNetworkDetails;
     Register.NetworkDetails arbSepoliaNetworkDetails;
+    DeploySource public sourceDeployer;
+    DeployDestination public destinationDeployer;
 
     address alice;
     address bob;
@@ -23,6 +26,11 @@ contract XNFTTest is Test {
     EncodeExtraArgs public encodeExtraArgs;
 
     function setUp() public {
+        //sourceDeployer = new DeploySource();
+        //destinationDeployer = new DeployDestination();
+        //destinationDeployer.run(Helper.SupportedNetworks.ARBITRUM_SEPOLIA);
+        //sourceDeployer.run(Helper.SupportedNetworks.ETHEREUM_SEPOLIA);
+
         alice = makeAddr("alice");
         bob = makeAddr("bob");
 
@@ -58,7 +66,7 @@ contract XNFTTest is Test {
         console.log("Arbitrum Sepolia Fork Chain ID:", block.chainid);
 
         arbSepoliaNetworkDetails = ccipLocalSimulatorFork.getNetworkDetails(block.chainid); // we are currently on Arbitrum Sepolia Fork
-        console.log("Arbitrum Sepolia Fork Chain Selector:",  arbSepoliaNetworkDetails.chainSelector);
+        console.log("Arbitrum Sepolia Fork Chain Selector:", arbSepoliaNetworkDetails.chainSelector);
         assertEq(
             arbSepoliaNetworkDetails.chainSelector,
             3478487238524512106,
@@ -77,7 +85,7 @@ contract XNFTTest is Test {
         vm.selectFork(ethSepoliaFork);
         assertEq(vm.activeFork(), ethSepoliaFork);
         console.log("Ethereum Sepolia Fork Chain ID:", block.chainid);
-    
+
         encodeExtraArgs = new EncodeExtraArgs();
 
         uint256 gasLimit = 200_000;
