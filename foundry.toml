@@ -10,7 +10,7 @@ remappings = [
     '@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/',
     '@chainlink/local/=lib/chainlink-local/',
 ]
-
+ffi = true
 gas_reports = ["*"]
 solc = '0.8.20'
 evm_version = 'paris'
@@ -32,5 +32,9 @@ kromaSepolia = "${KROMA_SEPOLIA_RPC_URL}"
 wemixTestnet = "${WEMIX_TESTNET_RPC_URL}"
 gnosisChiado = "${GNOSIS_CHIADO_RPC_URL}"
 celoAlfajores = "${CELO_ALFAJORES_RPC_URL}"
+anvil = "${ANVIL}"
+
+[dependencies]
+forge-std = "^1.8.0"
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

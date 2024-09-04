@@ -5,7 +5,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {CCIPLocalSimulatorFork, Register} from "@chainlink/local/src/ccip/CCIPLocalSimulatorFork.sol";
 import {DeploySource, DeployDestination} from "../script/CrossChainNFT.s.sol";
 import {XNFT} from "../src/XNFT.sol";
-import {EncodeExtraArgs} from "../src/utils/EncodeExtraArgs.sol";
+import {EncodeExtraArgs} from "../test/utils/EncodeExtraArgs.sol";
 import "../script/Helper.sol";
 
 contract XNFTTest is Test {

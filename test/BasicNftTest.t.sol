@@ -8,7 +8,7 @@ import {Test, console2} from "forge-std/Test.sol";
 import {MintBasicNft} from "../script/Interactions.s.sol";
 //import {ZkSyncChainChecker} from "lib/foundry-devops/src/ZkSyncChainChecker.sol";
 
-contract BasicNftTest is Test, ZkSyncChainChecker {
+contract BasicNftTest is Test {   //, ZkSyncChainChecker {
     string constant NFT_NAME = "Dogie";
     string constant NFT_SYMBOL = "DOG";
     BasicNft public basicNft;
@@ -20,12 +20,14 @@ contract BasicNftTest is Test, ZkSyncChainChecker {
     address public constant USER = address(1);
 
     function setUp() public {
-        if (!isZkSyncChain()) {
+       /* if (!isZkSyncChain()) {
             deployer = new DeployBasicNft();
             basicNft = deployer.run();
         } else {
             basicNft = new BasicNft();
-        }
+        }*/
+
+        basicNft = new BasicNft();
     }
 
     function testInitializedCorrectly() public view {

@@ -46,7 +46,8 @@ contract XNFT is ERC721, ERC721URIStorage, ERC721Burnable, IAny2EVMMessageReceiv
         "https://ipfs.io/ipfs/QmTgqnhFBMkfT9s8PHKcdXBn1f5bG3Q5hmBaR4U6hoTvb1?filename=Chainlink_Elf.png",
         "https://ipfs.io/ipfs/QmZGQA92ri1jfzSu61JRaNQXYg1bLuM7p8YT83DzFA2KLH?filename=Chainlink_Knight.png",
         "https://ipfs.io/ipfs/QmW1toapYs7M29rzLXTENn3pbvwe8ioikX1PwzACzjfdHP?filename=Chainlink_Orc.png",
-        "https://ipfs.io/ipfs/QmPMwQtFpEdKrUjpQJfoTeZS1aVSeuJT6Mof7uV29AcUpF?filename=Chainlink_Witch.png"
+        "https://ipfs.io/ipfs/QmPMwQtFpEdKrUjpQJfoTeZS1aVSeuJT6Mof7uV29AcUpF?filename=Chainlink_Witch.png",
+        "https://gateway.pinata.cloud/ipfs/QmQ4L8uAZNnBGTe1two4iHTzDYrZ1bA1adBCxmvCMUMa1m"
     ];
 
     IRouterClient internal immutable i_ccipRouter;

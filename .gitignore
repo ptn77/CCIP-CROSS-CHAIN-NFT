@@ -22,3 +22,4 @@ lib/ccip
 lib/openzeppelin-contracts/
 lib/chainlink/
 lib/chainlink-local/
+lib/foundry-devops

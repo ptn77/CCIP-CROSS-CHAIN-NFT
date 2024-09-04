@@ -6,7 +6,7 @@
     import {XNFT} from "../src/XNFT.sol";
     import {DestinationMinter} from "../src/DestinationMinter.sol";
     import {SourceMinter} from "../src/SourceMinter.sol";
-    import {EncodeExtraArgs} from "../src/utils/EncodeExtraArgs.sol";
+    import {EncodeExtraArgs} from "../test/utils/EncodeExtraArgs.sol";
 
     //forge script ./script/CrossChainNFT.s.sol:XNFT -vvv --broadcast --rpc-url ethereumSepolia
 
