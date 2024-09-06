@@ -6,17 +6,19 @@ import {DeployBasicNft} from "../script/DeployBasicNft.s.sol";
 import {BasicNft} from "../src/BasicNft.sol";
 import {Test, console2} from "forge-std/Test.sol";
 import {MintBasicNft} from "../script/Interactions.s.sol";
+import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 //import {ZkSyncChainChecker} from "lib/foundry-devops/src/ZkSyncChainChecker.sol";
 
 contract BasicNftTest is Test {   //, ZkSyncChainChecker {
-    string constant NFT_NAME = "Dogie";
-    string constant NFT_SYMBOL = "DOG";
+    string constant NFT_NAME = "Art";
+    string constant NFT_SYMBOL = "ART";
     BasicNft public basicNft;
     DeployBasicNft public deployer;
     address public deployerAddress;
 
     string public constant PUG_URI =
         "ipfs://bafybeig37ioir76s7mg5oobetncojcm3c3hxasyd4rvid4jqhy4gkaheg4/?filename=0-PUG.json";
+    string public constant _baseURI = "data:application/json;base64,";
     address public constant USER = address(1);
 
     function setUp() public {
@@ -45,8 +47,28 @@ contract BasicNftTest is Test {   //, ZkSyncChainChecker {
     function testTokenURIIsCorrect() public {
         vm.prank(USER);
         basicNft.mintNft(PUG_URI);
-
-        assert(keccak256(abi.encodePacked(basicNft.tokenURI(0))) == keccak256(abi.encodePacked(PUG_URI)));
+        string memory matchString = string(
+            abi.encodePacked(
+                _baseURI,
+                Base64.encode(
+                    bytes(
+                        abi.encodePacked(
+                            '{"name":"',
+                            "Art",
+                            '", "description": "',
+                            "Phuong Nguyen's NFT",
+                            '", ',
+                            '"attributes": [{"trait_type": "',
+                            "Special Image",
+                            '", "value": 100}], "image":"',
+                            PUG_URI,
+                            '"}'
+                        )
+                    )
+                )
+            )
+        );
+        assert(keccak256(abi.encodePacked(basicNft.tokenURI(0))) == keccak256(abi.encodePacked(matchString)));
     }
 
     // Remember, scripting doesn't work with zksync as of today!

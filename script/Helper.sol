@@ -18,6 +18,20 @@ contract Helper {
 
     }
 
+    //Chain ID
+    uint64 constant ethereumBlockchainId = 1;
+    uint64 constant avalancheBlockchainId = 43113;
+    uint64 constant arbitrumBlockchainId = 42161;
+    uint64 constant polygonBlockchainId = 137;
+    uint64 constant bnbChainBlockchainId = 97;
+    uint64 constant optimismBlockchainId = 10;
+    uint64 constant baseBlockchainId = 84531;
+    uint64 constant wemixBlockchainId = 10001;
+    uint64 constant kromaBlockchainId = 10002;
+    uint64 constant metisBlockchainId = 1088;
+    uint64 constant zksyncBlockchainId = 1442;  
+    uint64 constant sepoliaBlockchinId = 11155111;
+
     mapping(SupportedNetworks enumValue => string humanReadableName) public networks;
 
     enum PayFeesIn {

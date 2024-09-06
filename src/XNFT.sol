@@ -12,6 +12,7 @@ import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/
 import {IAny2EVMMessageReceiver} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IAny2EVMMessageReceiver.sol";
 import {OwnerIsCreator} from "@chainlink/contracts-ccip/src/v0.8/shared/access/OwnerIsCreator.sol";
 import {LinkTokenInterface} from "@chainlink/contracts-ccip/src/v0.8/shared/interfaces/LinkTokenInterface.sol";
+import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 
 /**
  * THIS IS AN EXAMPLE CONTRACT THAT USES HARDCODED VALUES FOR CLARITY.
@@ -57,6 +58,7 @@ contract XNFT is ERC721, ERC721URIStorage, ERC721Burnable, IAny2EVMMessageReceiv
     uint256 private _nextTokenId;
 
     mapping(uint64 destChainSelector => XNftDetails xNftDetailsPerChain) public s_chains;
+    mapping(uint256 tokenId => string tokenUri) private s_tokenIdToUri;
 
     event ChainEnabled(uint64 chainSelector, address xNftAddress, bytes ccipExtraArgs);
     event ChainDisabled(uint64 chainSelector);
@@ -215,8 +217,33 @@ contract XNFT is ERC721, ERC721URIStorage, ERC721Burnable, IAny2EVMMessageReceiv
         IERC20(_token).safeTransfer(_beneficiary, amount);
     }
 
+    function _baseURI() internal pure override returns (string memory) {
+        return "data:application/json;base64,";
+    }
+
     function tokenURI(uint256 tokenId) public view override(ERC721, ERC721URIStorage) returns (string memory) {
-        return super.tokenURI(tokenId);
+
+         return string(
+            abi.encodePacked(
+                _baseURI(),
+                Base64.encode(
+                    bytes(
+                        abi.encodePacked(
+                            '{"name":"',
+                            name(),
+                            '", "description": "',
+                            "Phuong Nguyen's NFT",
+                            '", ',
+                            '"attributes": [{"trait_type": "',
+                            "Special Image",
+                            '", "value": 100}], "image":"',
+                            s_tokenIdToUri[tokenId],
+                            '"}'
+                        )
+                    )
+                )
+            )
+        );
     }
 
     function getCCIPRouter() public view returns (address) {
